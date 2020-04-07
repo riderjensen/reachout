@@ -59,16 +59,22 @@ def api_filter():
     # name = query_parameters.get('name')
     age = query_parameters.get('age')
 
-    data = {}
-    returnItem = []
+    if age: 
+        
+        data = {}
+        returnItem = []
 
-    with open('books.json') as json_file:
-        data = json.load(json_file)
+        with open('books.json') as json_file:
+            data = json.load(json_file)
 
-    for p in data['people']:
-        if p['age'] == int(age):
-            returnItem.append(p)
+        for p in data['people']:
+            if p['age'] == int(age):
+                returnItem.append(p)
 
-    return jsonify(returnItem)
+        return jsonify(returnItem)
+
+    else:
+        
+        return "Error: No id field provided. Please specify an id."
 
 app.run()
