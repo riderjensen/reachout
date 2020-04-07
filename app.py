@@ -13,8 +13,34 @@ def page_not_found(e):
 
 @app.route('/', methods=['GET'])
 def home():
-    return '''<h1>Distant Reading Archive</h1>
-<p>A prototype API for distant reading of science fiction novels.</p>'''
+    return '''<h1>Documentation</h1>
+                <style>
+                    details {
+                        background-color: lightblue;
+                        padding: 10px;
+                        margin: 5px;
+                    }
+                    div {
+                        background-color: white;
+                        padding: 5px;
+                        margin: 10px;
+                    }
+                </style>
+                <details>
+                    <summary><code>/api/v1/resources/books/all</code></summary>
+                    <div style="margin-left: 20px">
+                        <p>Returns all books</p>
+                    </div>
+                </details>
+                <details>
+                    <summary><code>/api/v1/resources/books</code></summary>
+                    <div style="margin-left: 20px">
+                        <p>Parameters</p>
+                        <code>?age=[int]</code>
+                        <code>?name=[string]</code>
+                    </div>
+                </details>
+                '''
 
 
 @app.route('/api/v1/resources/books/all', methods=['GET'])
@@ -30,7 +56,7 @@ def api_all():
 def api_filter():
     query_parameters = request.args
 
-    name = query_parameters.get('name')
+    # name = query_parameters.get('name')
     age = query_parameters.get('age')
 
     data = {}
