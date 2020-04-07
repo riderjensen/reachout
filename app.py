@@ -46,7 +46,7 @@ def home():
 @app.route('/api/v1/resources/people/all', methods=['GET'])
 def api_all():
 
-    with open('books.json') as json_file:
+    with open('people.json') as json_file:
         data = json.load(json_file)
 
     return jsonify(data)
@@ -57,20 +57,22 @@ def api_all():
 def parse_request():
     items = request.json
 
-    # if items 
-
-    with open('books.json') as json_file:
+    try:
+        json_file = open('people.json')
         data = json.load(json_file)
         data['people'].append(items)
 
-        print(data)
-
-        f = open("books.json", "w")
+        f = open("people.json", "w")
         jsondump = json.dumps(data)
         f.write(jsondump)
         f.close()
 
-    return data
+        return data
+
+
+    except:
+        print('error with the json file')
+
 
 
 
@@ -86,7 +88,7 @@ def api_filter():
         data = {}
         returnItem = []
 
-        with open('books.json') as json_file:
+        with open('people.json') as json_file:
             data = json.load(json_file)
 
         for p in data['people']:
