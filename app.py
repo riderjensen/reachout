@@ -27,13 +27,13 @@ def home():
                     }
                 </style>
                 <details>
-                    <summary><code>/api/v1/resources/books/all</code></summary>
+                    <summary><code>/api/v1/resources/people/all</code></summary>
                     <div style="margin-left: 20px">
-                        <p>Returns all books</p>
+                        <p>Returns all people</p>
                     </div>
                 </details>
                 <details>
-                    <summary><code>/api/v1/resources/books</code></summary>
+                    <summary><code>/api/v1/resources/people</code></summary>
                     <div style="margin-left: 20px">
                         <p>Parameters</p>
                         <code>?age=[int]</code>
@@ -43,7 +43,7 @@ def home():
                 '''
 
 
-@app.route('/api/v1/resources/books/all', methods=['GET'])
+@app.route('/api/v1/resources/people/all', methods=['GET'])
 def api_all():
 
     with open('books.json') as json_file:
@@ -52,7 +52,29 @@ def api_all():
     return jsonify(data)
 
 
-@app.route('/api/v1/resources/books', methods=['GET'])
+
+@app.route('/api/v1/resources/people/add', methods=['POST'])
+def parse_request():
+    items = request.json
+
+    # if items 
+
+    with open('books.json') as json_file:
+        data = json.load(json_file)
+        data['people'].append(items)
+
+        print(data)
+
+        f = open("books.json", "w")
+        jsondump = json.dumps(data)
+        f.write(jsondump)
+        f.close()
+
+    return data
+
+
+
+@app.route('/api/v1/resources/people', methods=['GET'])
 def api_filter():
     query_parameters = request.args
 
